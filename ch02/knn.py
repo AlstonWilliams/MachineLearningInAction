@@ -61,20 +61,22 @@ def datingClassTest():
     errorCount = 0.0
     for i in range(numTestVecs):
         classifierResult = classify0(normMat[i, :], normMat[numTestVecs: m, :], datingLabels[numTestVecs:m], 3)
-        print "the classifier came back with: %d, the real answer is: %d" % (classifierResult, datingLabels[i])
+        print("the classifier came back with: %d, the real answer is: %d" % (classifierResult, datingLabels[i]))
         if (classifierResult != datingLabels[i]): errorCount += 1
-    print "the total error rate is: %f" % (errorCount/float(numTestVecs))
+    print("the total error rate is: %f" % (errorCount / float(numTestVecs)))
+
 
 def classifyPerson():
     resultList = ['not at all', 'in small doses', 'in large doses']
-    percentTats = float(raw_input("percentage of time spent playing video games?"))
-    ffMiles = float(raw_input("frequent flier miles earned per year?"))
-    iceCream = float(raw_input("liters of ice cream consumed per year?"))
-    datingDataMat, datingLabels = file2matrix('datingTestSet2.txt')
-    normMat, ranges, minVals = autoNorm(datingDataMat)
+    percentTats = float(input("percentage of time spent playing video games?"))
+    ffMiles = float(input("frequent flier miles earned per year?"))
+    iceCream = float(input("liters of ice cream consumed per year?"))
+    datingDataMat, datingLabels = file2matrix('datingTestSet2.txt') # 1. 将原始数据转换成矩阵形式
+    normMat, ranges, minVals = autoNorm(datingDataMat) # 2. normalization
     inArr = array([ffMiles, percentTats, iceCream])
-    classifierResult = classify0((inArr - minVals)/ranges, normMat, datingLabels, 3)
-    print "You will probably like this person: ", resultList[classifierResult - 1]
+    classifierResult = classify0((inArr - minVals)/ranges, normMat, datingLabels, 3) # 根据K均值算法计算分类
+    print("You will probably like this person: ", resultList[classifierResult - 1])
+
 
 def img2Vector(filename):
     returnVect = zeros((1, 1024))
@@ -105,7 +107,7 @@ def handwritingClassTest():
         classNumStr = int(fileStr.split('_')[0])
         vectorUnderTest = img2Vector('testDigits/%s' % fileNameStr)
         classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, 3)
-        print "the classifer came back with: %d, the real answer is: %d" % (classifierResult, classNumStr)
+        print("the classifer came back with: %d, the real answer is: %d" % (classifierResult, classNumStr))
         if(classifierResult != classNumStr): errorCount += 1.0
-    print "\nthe total number of errors is: %d" % errorCount
-    print "\nthe total error rate is: %f" % (errorCount/float(mTest))
+    print("\nthe total number of errors is: %d" % errorCount)
+    print("\nthe total error rate is: %f" % (errorCount / float(mTest)))
