@@ -69,9 +69,9 @@ def adaBoostTrainDS(dataArr, classLabels, numIt=40):
         bestStump['alpha'] = alpha
         weakClassArr.append(bestStump)
         print("classEst: ", classEst.T)
-        expon = multiply(-1 * alpha * mat(classLabels).T, classEst) # 如果样本被正确分类，则升高权重，如果被错误分类，则降低权重
+        expon = multiply(-1 * alpha * mat(classLabels).T, classEst) # 如果样本被正确分类，则降低权重，如果被错误分类，则升高权重
         D = multiply(D, exp(expon))
-        D = D/D.sum() # 更新没一行的权重
+        D = D/D.sum() # 更新每一行的权重
         aggClassEst += alpha * classEst
         print("aggClassEst:", aggClassEst.T)
         aggErrors = multiply(sign(aggClassEst) != mat(classLabels).T, ones((m, 1)))

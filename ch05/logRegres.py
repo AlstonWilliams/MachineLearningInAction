@@ -55,7 +55,7 @@ def plotBestFit(weights):
     plt.xlabel('X1'); plt.ylabel('X2');
     plt.show()
 
-# 跟gradAscent相比，前者需要走很多遍数据集，才能得到结果。而随即梯度下降只需要走一遍就好。
+# 跟gradAscent相比，前者需要走很多遍数据集，才能得到结果。而随机梯度下降只需要走一遍就好。
 # 但是只运行一次的效果不如gradAscent的好
 def stocGradAscent0(dataMatrix, classLabels):
     m, n = shape(dataMatrix)
